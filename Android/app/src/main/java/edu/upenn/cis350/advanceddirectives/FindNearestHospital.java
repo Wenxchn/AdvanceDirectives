@@ -28,6 +28,9 @@ public class FindNearestHospital extends FragmentActivity implements OnMapReadyC
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
+    int PROXIMITY_RADIUS = 10000;
+    double latitude, longitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +65,34 @@ public class FindNearestHospital extends FragmentActivity implements OnMapReadyC
         });
     }
 
+    private String getUrl(double latitude, double longitude, String nearbyPlace) {
+        StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+        googlePlaceUrl.append("location=").append(latitude).append(",").append(longitude);
+        googlePlaceUrl.append("&radius=").append(PROXIMITY_RADIUS);
+        googlePlaceUrl.append("&type=").append(nearbyPlace);
+        googlePlaceUrl.append("&sensor=true");
+        googlePlaceUrl.append("&key=AIzaSyAHuMOsFT9TozVUEoNI-oQNIT59OKZSrJc");
+        return googlePlaceUrl.toString();
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         LatLng current = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        latitude = currentLocation.getLatitude();
+        longitude = currentLocation.getLongitude();
         MarkerOptions markerOptions = new MarkerOptions().position(current).title("Currently Here");
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(current));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 12));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 15));
         googleMap.addMarker(markerOptions);
+
+        String hospital = "hospital";
+        String url = getUrl(latitude, longitude, hospital);
+        Object[] dataTransfer = new Object[2];
+        dataTransfer[0] = googleMap;
+        dataTransfer[1] = url;
+        GetNearbyHospitalData getNearbyHospitalData = new GetNearbyHospitalData();
+        getNearbyHospitalData.execute(dataTransfer);
+        Toast.makeText(FindNearestHospital.this, "Showing Nearby Hospitals", Toast.LENGTH_LONG).show();
     }
 
     @Override
