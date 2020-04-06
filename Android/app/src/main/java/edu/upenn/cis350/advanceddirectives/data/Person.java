@@ -1,7 +1,6 @@
 package edu.upenn.cis350.advanceddirectives.data;
 
 public class Person {
-    private int ID;
     private Form form;
     private String passcode;
 
@@ -14,19 +13,14 @@ public class Person {
     private String phone;
     private String address;
 
-    public Person(int ID, String username, String password, String name,
+    public Person(String username, String password, String name,
                   String email, String phone, String address) {
-        this.ID = ID;
         this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
-    }
-
-    public int getID() {
-        return this.ID;
     }
 
     public Form getForm() {

@@ -5,31 +5,25 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class BasicDatabase extends Database {
-    private int CurrID = 0;
-    private HashMap<Integer, Person> people;
+    private HashMap<String, Person> people;
 
     public BasicDatabase() {
-        this.people = new HashMap<Integer, Person>();
+        this.people = new HashMap<String, Person>();
     }
 
     @Override
-    public int getAndIncrementCurrID() {
-        return CurrID++;
-    }
-
-    @Override
-    public Person getPerson(int ID) {
-        return this.people.get(ID);
+    public Person getPerson(String username) {
+        return this.people.get(username);
     }
 
     @Override
     public Person addPerson(Person person) {
-        return this.people.put(person.getID(), person);
+        return this.people.put(person.getUsername(), person);
     }
 
     @Override
-    public Person removePersonByID(int ID) {
-        return this.people.remove(ID);
+    public Person removePerson(String username) {
+        return this.people.remove(username);
     }
 
     @Override
@@ -44,11 +38,6 @@ public class BasicDatabase extends Database {
 
     @Override
     public boolean isAvailable(String username) {
-        for (Person person: this.people.values()) {
-            if (person.getUsername().equals(username)) {
-                return false;
-            }
-        }
-        return true;
+        return !this.people.containsKey(username);
     }
 }

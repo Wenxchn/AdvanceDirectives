@@ -28,7 +28,7 @@ public class Signup extends AppCompatActivity {
         String phone = ((EditText) findViewById(R.id.phone)).getText().toString();
         String address = ((EditText) findViewById(R.id.address)).getText().toString();
         if (db.isAvailable(username)) {
-            Person currentUser = new Person(db.getAndIncrementCurrID(), username, password,
+            Person currentUser = new Person(username, password,
                     name, email, phone, address);
             db.addPerson(currentUser);
             Toast.makeText(this, "Account created, you can now log in!",
