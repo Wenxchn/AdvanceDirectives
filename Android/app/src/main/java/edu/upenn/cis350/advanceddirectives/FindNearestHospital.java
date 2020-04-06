@@ -13,6 +13,7 @@ import android.location.Location;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
@@ -37,8 +38,10 @@ public class FindNearestHospital extends FragmentActivity implements OnMapReadyC
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
+    static String placeName = "Nearby Hospitals: ";
+
     private static final int REQUEST_CODE = 101;
-    int PROXIMITY_RADIUS = 1000;
+    int PROXIMITY_RADIUS = 10000;
     double latitude, longitude;
     Location location;
     private GoogleMap googleMap; Marker currentLocationMarker;
@@ -54,7 +57,6 @@ public class FindNearestHospital extends FragmentActivity implements OnMapReadyC
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.google_map);
         mapFragment.getMapAsync(this);
-
     }
 
     private String getUrl(double latitude, double longitude, String nearbyPlace) {
@@ -64,6 +66,15 @@ public class FindNearestHospital extends FragmentActivity implements OnMapReadyC
         googlePlaceUrl.append("&type=").append(nearbyPlace);
         googlePlaceUrl.append("&keyword=").append(nearbyPlace);
         googlePlaceUrl.append("&key=AIzaSyAHuMOsFT9TozVUEoNI-oQNIT59OKZSrJc");
+        Log.d("URL", googlePlaceUrl.toString());
+        System.out.println(googlePlaceUrl.toString());
+//        Toast.makeText(this, googlePlaceUrl.toString(),
+//                Toast.LENGTH_LONG).show();
+//        if (latitude == 0) {
+//            return "https://maps.googleapis.com/maps/api/place/nearbysearch/" +
+//                    "json?location=37.422001,-122.084061&radius=10000&type=hospital&" +
+//                    "keyword=hospital&key=AIzaSyAHuMOsFT9TozVUEoNI-oQNIT59OKZSrJc";
+//        }
         return googlePlaceUrl.toString();
     }
 
@@ -75,14 +86,15 @@ public class FindNearestHospital extends FragmentActivity implements OnMapReadyC
             buildGoogleApiClient();
         }
 
-        String url = getUrl(latitude, longitude, "hospital");
-        Object[] dataTransfer = new Object[2];
-        dataTransfer[0] = googleMap;
-        dataTransfer[1] = url;
-        GetNearbyHospitalData getNearbyHospitalData = new GetNearbyHospitalData();
-        getNearbyHospitalData.execute(dataTransfer);
-        Toast.makeText(FindNearestHospital.this, "Showing Nearby Hospitals", Toast.LENGTH_LONG).show();
-
+//        String url = getUrl(latitude, longitude, "hospital");
+//        Object[] dataTransfer = new Object[2];
+//        dataTransfer[0] = googleMap;
+//        dataTransfer[1] = url;
+//        GetNearbyHospitalData getNearbyHospitalData = new GetNearbyHospitalData();
+//        getNearbyHospitalData.execute(dataTransfer);
+//        Toast.makeText(FindNearestHospital.this, "Showing Nearby Hospitals", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, placeName,
+//                Toast.LENGTH_LONG * 10).show();
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -116,6 +128,8 @@ public class FindNearestHospital extends FragmentActivity implements OnMapReadyC
         this.location = location;
         latitude = location.getLatitude();
         longitude = location.getLongitude();
+        Log.d("THIS IS THE LATITUDE IT IS GETTING BUDDY ", String.valueOf(latitude));
+        Log.d("THIS IS THE LONGITUDE IT IS GETTING BUDDY ", String.valueOf(longitude));
         prevLocation = location;
         if (currentLocationMarker != null) {
             currentLocationMarker.remove();
@@ -133,6 +147,15 @@ public class FindNearestHospital extends FragmentActivity implements OnMapReadyC
         if (client != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(client, this);
         }
+        String url = getUrl(latitude, longitude, "hospital");
+        Object[] dataTransfer = new Object[2];
+        dataTransfer[0] = googleMap;
+        dataTransfer[1] = url;
+        GetNearbyHospitalData getNearbyHospitalData = new GetNearbyHospitalData();
+        getNearbyHospitalData.execute(dataTransfer);
+        Toast.makeText(FindNearestHospital.this, "Showing Nearby Hospitals", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, placeName,
+                Toast.LENGTH_LONG * 10).show();
     }
 
     public boolean checkLocationPermission()

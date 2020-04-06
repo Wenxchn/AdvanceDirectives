@@ -1,5 +1,7 @@
 package edu.upenn.cis350.advanceddirectives;
 
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +34,7 @@ public class DataParser {
             googlePlacesMap.put("lng", longitude);
             googlePlacesMap.put("reference", reference);
 
+            FindNearestHospital.placeName += placeName + " ";
         } catch (JSONException e) {
             e.printStackTrace();
         }

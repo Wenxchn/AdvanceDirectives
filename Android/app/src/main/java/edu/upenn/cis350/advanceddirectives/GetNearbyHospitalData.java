@@ -47,7 +47,7 @@ public class GetNearbyHospitalData extends AsyncTask<Object, String, String> {
             String placeName = googlePlace.get("place_name");
             String vicinity = googlePlace.get("vicinity");
             double lat = Double.parseDouble((Objects.requireNonNull(googlePlace.get("lat"))));
-            double lgn = Double.parseDouble(Objects.requireNonNull(googlePlace.get("lgn")));
+            double lgn = Double.parseDouble(Objects.requireNonNull(googlePlace.get("lng")));
             LatLng latLng = new LatLng(lat, lgn);
             markerOptions.position(latLng);
             markerOptions.title(placeName + " : " + vicinity);
