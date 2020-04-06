@@ -15,22 +15,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<!--        <activity android:name=".FindNearestHospital"></activity>-->
+        <activity android:name=".FormSettingsActivity"></activity>
+        <activity android:name=".PasscodeActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/map_key"/>
+            android:value="@string/map_key" />
 
-        <activity
-            android:name=".FindNearestHospital"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Login" />
+        <activity android:name=".Signup" />
+        <activity android:name=".Home" />
+        <activity android:name=".FindNearestHospital" />
     </application>
 
 </manifest>
