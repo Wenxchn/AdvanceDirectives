@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PasscodeActivity"></activity>
+        <activity android:name=".FormSettingsActivity"></activity>
+        <activity android:name=".PasscodeActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

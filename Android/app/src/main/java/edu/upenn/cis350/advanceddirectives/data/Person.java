@@ -26,6 +26,7 @@ public class Person {
         this.phone = phone;
         this.address = address;
         this.birthday = birthday;
+        this.form = new Form();
     }
 
     public Form getForm() {

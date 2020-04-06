@@ -32,4 +32,9 @@ public class Home extends AppCompatActivity {
         Intent i = new Intent(this, PasscodeActivity.class);
         startActivity(i);
     }
+
+    public void onFormSettingsClick(View v) {
+        Intent i = new Intent(this, FormSettingsActivity.class);
+        startActivity(i);
+    }
 }

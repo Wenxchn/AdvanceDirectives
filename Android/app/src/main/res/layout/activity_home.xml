@@ -91,6 +91,13 @@
             android:onClick="onPasscodeSettingsClick"
             android:text="Passcode Settings" />
 
+        <Button
+            android:id="@+id/formSettingsBut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onFormSettingsClick"
+            android:text="Form Settings" />
+
     </LinearLayout>
 
 
