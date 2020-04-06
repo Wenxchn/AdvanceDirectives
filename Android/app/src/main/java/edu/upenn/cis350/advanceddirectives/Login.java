@@ -6,6 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import edu.upenn.cis350.advanceddirectives.data.Database;
+
 public class Login extends AppCompatActivity {
 
     @Override
