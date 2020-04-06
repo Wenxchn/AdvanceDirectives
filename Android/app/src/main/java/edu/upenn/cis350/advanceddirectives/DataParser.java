@@ -34,7 +34,7 @@ public class DataParser {
             googlePlacesMap.put("lng", longitude);
             googlePlacesMap.put("reference", reference);
 
-            FindNearestHospital.placeName += placeName + " ";
+//            FindNearestHospital.placeName += placeName + " ";
         } catch (JSONException e) {
             e.printStackTrace();
         }

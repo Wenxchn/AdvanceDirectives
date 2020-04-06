@@ -38,7 +38,7 @@ public class FindNearestHospital extends FragmentActivity implements OnMapReadyC
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
-    static String placeName = "Nearby Hospitals: ";
+//    static String placeName = "Nearby Hospitals: ";
 
     private static final int REQUEST_CODE = 101;
     int PROXIMITY_RADIUS = 10000;
@@ -66,8 +66,8 @@ public class FindNearestHospital extends FragmentActivity implements OnMapReadyC
         googlePlaceUrl.append("&type=").append(nearbyPlace);
         googlePlaceUrl.append("&keyword=").append(nearbyPlace);
         googlePlaceUrl.append("&key=AIzaSyAHuMOsFT9TozVUEoNI-oQNIT59OKZSrJc");
-        Log.d("URL", googlePlaceUrl.toString());
-        System.out.println(googlePlaceUrl.toString());
+//        Log.d("URL", googlePlaceUrl.toString());
+//        System.out.println(googlePlaceUrl.toString());
 //        Toast.makeText(this, googlePlaceUrl.toString(),
 //                Toast.LENGTH_LONG).show();
 //        if (latitude == 0) {
@@ -128,8 +128,8 @@ public class FindNearestHospital extends FragmentActivity implements OnMapReadyC
         this.location = location;
         latitude = location.getLatitude();
         longitude = location.getLongitude();
-        Log.d("THIS IS THE LATITUDE IT IS GETTING BUDDY ", String.valueOf(latitude));
-        Log.d("THIS IS THE LONGITUDE IT IS GETTING BUDDY ", String.valueOf(longitude));
+//        Log.d("THIS IS THE LATITUDE IT IS GETTING BUDDY ", String.valueOf(latitude));
+//        Log.d("THIS IS THE LONGITUDE IT IS GETTING BUDDY ", String.valueOf(longitude));
         prevLocation = location;
         if (currentLocationMarker != null) {
             currentLocationMarker.remove();
@@ -154,8 +154,8 @@ public class FindNearestHospital extends FragmentActivity implements OnMapReadyC
         GetNearbyHospitalData getNearbyHospitalData = new GetNearbyHospitalData();
         getNearbyHospitalData.execute(dataTransfer);
         Toast.makeText(FindNearestHospital.this, "Showing Nearby Hospitals", Toast.LENGTH_LONG).show();
-        Toast.makeText(this, placeName,
-                Toast.LENGTH_LONG * 10).show();
+//        Toast.makeText(this, placeName,
+//                Toast.LENGTH_LONG * 10).show();
     }
 
     public boolean checkLocationPermission()
