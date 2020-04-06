@@ -13,6 +13,7 @@ public class DownloadUrl {
         String data = "";
         InputStream inputStream = null;
         HttpURLConnection urlConnection = null;
+
         try {
             URL url = new URL(myUrl);
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -20,13 +21,13 @@ public class DownloadUrl {
 
             inputStream = urlConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuffer stringBuffer = new StringBuffer();
+            StringBuilder stringBuilder = new StringBuilder();
             String line = "";
             while ((line = bufferedReader.readLine()) != null) {
-                stringBuffer.append(line);
+                stringBuilder.append(line);
             }
 
-            data = stringBuffer.toString();
+            data = stringBuilder.toString();
             bufferedReader.close();
 
         } catch (MalformedURLException e) {

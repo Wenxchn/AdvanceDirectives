@@ -15,12 +15,12 @@ import java.util.Objects;
 
 public class GetNearbyHospitalData extends AsyncTask<Object, String, String> {
 
-    String googlePlacesData, url;
-    GoogleMap mMap;
+    private String googlePlacesData, url;
+    private GoogleMap googleMap;
 
     @Override
     protected String doInBackground(Object... objects) {
-        mMap = (GoogleMap)objects[0];
+        googleMap = (GoogleMap)objects[0];
         url = (String)objects[1];
 
         DownloadUrl downloadUrl = new DownloadUrl();
@@ -34,7 +34,7 @@ public class GetNearbyHospitalData extends AsyncTask<Object, String, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        List<HashMap<String, String>> nearbyPlaceList = null;
+        List<HashMap<String, String>> nearbyPlaceList;
         DataParser parser = new DataParser();
         nearbyPlaceList = parser.parse(s);
         showNearbyPlaces(nearbyPlaceList);
@@ -46,15 +46,15 @@ public class GetNearbyHospitalData extends AsyncTask<Object, String, String> {
             HashMap<String, String> googlePlace = nearbyPlaceList.get(i);
             String placeName = googlePlace.get("place_name");
             String vicinity = googlePlace.get("vicinity");
-            double lat = Double.parseDouble(Objects.requireNonNull(googlePlace.get("lat")));
+            double lat = Double.parseDouble((Objects.requireNonNull(googlePlace.get("lat"))));
             double lgn = Double.parseDouble(Objects.requireNonNull(googlePlace.get("lgn")));
             LatLng latLng = new LatLng(lat, lgn);
             markerOptions.position(latLng);
             markerOptions.title(placeName + " : " + vicinity);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-            mMap.addMarker(markerOptions);
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+            googleMap.addMarker(markerOptions);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(10));
         }
     }
 }
