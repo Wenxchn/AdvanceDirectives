@@ -1,6 +1,9 @@
 package edu.upenn.cis350.advanceddirectives;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,5 +26,10 @@ public class Home extends AppCompatActivity {
         ((TextView) findViewById(R.id.phone)).setText(currentUser.getPhone());
         ((TextView) findViewById(R.id.address)).setText(currentUser.getAddress());
         ((TextView) findViewById(R.id.birthday)).setText(currentUser.getBirthday());
+    }
+
+    public void onPasscodeSettingsClick(View v) {
+        Intent i = new Intent(this, PasscodeActivity.class);
+        startActivity(i);
     }
 }

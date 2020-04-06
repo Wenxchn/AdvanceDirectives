@@ -84,6 +84,13 @@
             android:textSize="30dp"
             android:text="January 1st, 2000" />
 
+        <Button
+            android:id="@+id/passcodeSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onPasscodeSettingsClick"
+            android:text="Passcode Settings" />
+
     </LinearLayout>
 
 
