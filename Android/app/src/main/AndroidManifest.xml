@@ -15,12 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<!--        <activity android:name=".FindNearestHospital"></activity>-->
-
+        <!-- <activity android:name=".FindNearestHospital"></activity> -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/map_key"/>
-
+            android:value="@string/map_key" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -29,15 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Login"></activity>
-        <activity android:name=".Signup"></activity>
-        <activity android:name=".FindNearestHospital"></activity>
-
-
-
-
-
+        <activity android:name=".Login" />
+        <activity android:name=".Signup" />
+        <activity android:name=".Home" />
+        <activity android:name=".FindNearestHospital" />
     </application>
 
 </manifest>
