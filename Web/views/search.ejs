@@ -1,10 +1,24 @@
-Here are all the people:
+<title>Advanced Directives for Mental Health - Search Results</title>
+
+Search Results:
+Your search produced the following results.
+
+
+<% if (persons.length == 0) { %>
+    <p> No match found from search inputs. </p>
+<% } else { %>
 <ul>
-<% persons.forEach( (person) => { %>
+    <% persons.forEach( (person) => { %>
 
-<li><%= person.name %>: <%= person.age %></li>
+        <%= person.firstName %> <%= person.lastName %>
+        <ul>
+            <li>birthdate: <%= person.birthdate %></li>
+            <li>address: <%= person.address %></li>
+            <li>email: <%= person.email %></li>
+        </ul>
 
-<% }); %>
+    <% }); %>
 </ul>
+<%} %>
 
-<br><a href="/">Create New Person</a>
+<br><a href="/">Back To Search</a>
