@@ -8,19 +8,24 @@ public class Person {
     private String username;
     private String password;
     // Stuff you can search by
-    private String name;
+    private String firstName;
+    private String lastName;
     private String email;
     private String phone;
     private String address;
+    private String birthday;
 
-    public Person(String username, String password, String name,
-                  String email, String phone, String address) {
+    public Person(String username, String password, String firstName, String lastName,
+                  String email, String phone, String address, String birthday) {
         this.username = username;
         this.password = password;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.lastName = lastName;
         this.email = email;
         this.phone = phone;
         this.address = address;
+        this.birthday = birthday;
     }
 
     public Form getForm() {
@@ -51,12 +56,20 @@ public class Person {
         this.password = password;
     }
 
-    public String getName() {
-        return this.name;
+    public String getFirstName() {
+        return this.firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public void setLastName(String lastNname) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -81,5 +94,13 @@ public class Person {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getBirthday() {
+        return this.birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 }

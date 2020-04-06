@@ -17,9 +17,11 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         String username = this.getIntent().getStringExtra("username");
         this.currentUser = MainActivity.database.getPerson(username);
-        ((TextView) findViewById(R.id.name)).setText(currentUser.getName());
+        ((TextView) findViewById(R.id.name)).setText(
+                currentUser.getFirstName() + " " + currentUser.getLastName());
         ((TextView) findViewById(R.id.email)).setText(currentUser.getEmail());
         ((TextView) findViewById(R.id.phone)).setText(currentUser.getPhone());
         ((TextView) findViewById(R.id.address)).setText(currentUser.getAddress());
+        ((TextView) findViewById(R.id.birthday)).setText(currentUser.getBirthday());
     }
 }

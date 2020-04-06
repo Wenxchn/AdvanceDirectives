@@ -23,13 +23,15 @@ public class Signup extends AppCompatActivity {
         Database db = MainActivity.database;
         String username = ((EditText) findViewById(R.id.username)).getText().toString();
         String password = ((EditText) findViewById(R.id.passowrd)).getText().toString();
-        String name = ((EditText) findViewById(R.id.name)).getText().toString();
+        String firstName = ((EditText) findViewById(R.id.firstName)).getText().toString();
+        String lastName = ((EditText) findViewById(R.id.lastName)).getText().toString();
         String email = ((EditText) findViewById(R.id.email)).getText().toString();
         String phone = ((EditText) findViewById(R.id.phone)).getText().toString();
         String address = ((EditText) findViewById(R.id.address)).getText().toString();
+        String birthday = ((EditText) findViewById(R.id.birthday)).getText().toString();
         if (db.isAvailable(username)) {
             Person currentUser = new Person(username, password,
-                    name, email, phone, address);
+                    firstName, lastName, email, phone, address, birthday);
             db.addPerson(currentUser);
             Toast.makeText(this, "Account created, you can now log in!",
                     Toast.LENGTH_LONG).show();
