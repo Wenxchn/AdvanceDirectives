@@ -97,7 +97,12 @@
             android:layout_height="wrap_content"
             android:onClick="onFormSettingsClick"
             android:text="Form Settings" />
-
+        <Button
+            android:id="@+id/profPicSettingsBut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onProfPicSettingsClick"
+            android:text="Profile Picture Settings" />
     </LinearLayout>
 
 

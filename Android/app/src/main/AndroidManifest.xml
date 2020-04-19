@@ -15,7 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FormSettingsActivity"></activity>
+        <activity
+            android:name=".ProfilePicActivity"
+            android:label="@string/title_activity_profile_pic"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".FormSettingsActivity" />
         <activity android:name=".PasscodeActivity" />
 
         <meta-data
@@ -35,4 +39,6 @@
         <activity android:name=".FindNearestHospital" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>

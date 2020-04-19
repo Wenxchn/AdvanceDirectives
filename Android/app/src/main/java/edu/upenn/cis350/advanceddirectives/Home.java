@@ -37,4 +37,9 @@ public class Home extends AppCompatActivity {
         Intent i = new Intent(this, FormSettingsActivity.class);
         startActivity(i);
     }
+
+    public void onProfPicSettingsClick(View v) {
+        Intent i = new Intent(this, ProfilePicActivity.class);
+        startActivity(i);
+    }
 }

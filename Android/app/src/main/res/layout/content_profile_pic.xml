@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ProfilePicActivity"
+    tools:showIn="@layout/activity_profile_pic">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/currPic"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="150dp"
+            android:layout_height="150dp"/>
+
+        <Button
+            android:id="@+id/previewPicBut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onPreviewPicClick"
+            android:text="Select A Photo To Preview" />
+
+        <Button
+            android:id="@+id/uploadPicBut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Currently Selected Photo" />
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
