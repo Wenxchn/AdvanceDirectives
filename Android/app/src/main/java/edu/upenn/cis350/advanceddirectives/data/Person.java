@@ -35,7 +35,7 @@ public class Person {
         return moodCalendar;
     }
 
-    public void setForm(String[] answers) {
+    public void setForm(String answers) {
         return;
     }
 

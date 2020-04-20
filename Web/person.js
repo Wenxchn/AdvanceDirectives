@@ -13,7 +13,7 @@ var personSchema = new Schema({
     password: String,
     phone: String,
     moodCalendar: String,
-    form: Array
+    form: String
 });
 
 var mongoURI = "mongodb+srv://zqiu:12345@cluster0-bmaew.mongodb.net/test?retryWrites=true&w=majority";

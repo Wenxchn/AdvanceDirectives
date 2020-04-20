@@ -97,7 +97,12 @@ app.use('/get', (req, res) => {
 })
 
 app.use('/set', (req, res) => {
-    var person = req.query.person;
+    var personString = req.query.person
+    var decoded = decodeURI(personString)
+    console.log(personString)
+    console.log("here is the decoded:")
+    console.log(decoded)
+    var person = JSON.parse(decoded);
     var dbPerson = new Person(person);
     var username = person.username;
     var query = {};
@@ -119,6 +124,12 @@ app.use('/set', (req, res) => {
 })
 
 app.use('/remove', (req, res) => {
+    var personString = req.query.person
+    var decoded = decodeURI(personString)
+    console.log(personString)
+    console.log("here is the decoded:")
+    console.log(decoded)
+    var person = JSON.parse(decoded);
     var username = person.username;
     var query = {};
     query.username = username;
@@ -138,8 +149,7 @@ app.use('/remove', (req, res) => {
 })
 
 app.use('/all', (req, res) => {
-    var query = {};
-    Person.find(query, (err, persons) => {
+    Person.find({}, (err, persons) => {
         console.log("Getting all stuffs...")
         if (err) {
             console.log(err);

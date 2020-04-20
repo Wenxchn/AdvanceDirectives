@@ -7,6 +7,8 @@ import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -18,7 +20,7 @@ public class MyMongoDatabase extends Database {
     private class WebStuff extends AsyncTask<Object, Void, Object> {
 
         private Person getPersonFromJSON(JSONObject dbPerson) {
-            if (dbPerson.equals(new JSONObject())) { return null; }
+            if (dbPerson.length() == 0) { return null; }
             try {
                 String username = (String) dbPerson.get("username");
                 String password = (String) dbPerson.get("password");
@@ -30,7 +32,7 @@ public class MyMongoDatabase extends Database {
                 String birthday = (String) dbPerson.get("birthday");
                 Person person = new Person(username, password,
                         firstName, lastName, email, phone, address, birthday);
-                person.setForm((String[]) dbPerson.get("form"));
+                person.setForm((String) dbPerson.get("form"));
                 person.setMoodCalendar((String) dbPerson.get("moodCalendar"));
                 return person;
             } catch (Exception e) {
@@ -82,7 +84,7 @@ public class MyMongoDatabase extends Database {
         @Override
         protected Object doInBackground(Object... objects) {
             String action = (String) objects[0];
-            String urlStart = "http://localhost:5500/";
+            String urlStart = "http://10.0.2.2:5500/";
             try {
                 switch (action) {
                     case "get": {
@@ -91,7 +93,13 @@ public class MyMongoDatabase extends Database {
                     }
                     case "set": {
                         Person person = (Person) objects[1];
-                        String url = urlStart + "set" + "?person=" + getJSONFromPerson(person);
+                        String str = getJSONFromPerson(person).toString();
+                        if (true) {
+                            throw new RuntimeException(str);
+                        }
+                        String encoded = URLEncoder.encode(str, StandardCharsets.UTF_8.toString());
+                        System.out.println(encoded);
+                        String url = urlStart + "set" + "?person=" + encoded;
                         return getPersonFromJSON((JSONObject) getWebStuffs(url));
                     }
                     case "remove": {
@@ -126,60 +134,65 @@ public class MyMongoDatabase extends Database {
 
     @Override
     public Person getPerson(String username) {
-        Person person;
+        Person person = null;
         try {
             web.execute("get", username);
             person = (Person) web.get();
+            web = new WebStuff();
         } catch (Exception e) {
-            throw new RuntimeException();
+            e.printStackTrace();
         }
         return person;
     }
 
     @Override
     public Person addPerson(Person person) {
-        Person previous;
+        Person previous = null;
         try {
             web.execute("set", person);
             previous = (Person) web.get();
+            web = new WebStuff();
         } catch (Exception e) {
-            throw new RuntimeException();
+            e.printStackTrace();
         }
         return previous;
     }
 
     @Override
     public Person removePerson(String username) {
-        Person previous;
+        Person previous = null;
         try {
             web.execute("remove", username);
             previous = (Person) web.get();
+            web = new WebStuff();
         } catch (Exception e) {
-            throw new RuntimeException();
+            e.printStackTrace();
         }
         return previous;
     }
 
     @Override
     public Collection<Person> getAllPeople() {
-        Collection<Person> people;
+        Collection<Person> people = null;
         try {
             web.execute("all");
             people = (Collection<Person>) web.get();
+            web = new WebStuff();
         } catch (Exception e) {
-            throw new RuntimeException();
+            e.printStackTrace();
         }
         return people;
     }
 
     @Override
     public boolean isAvailable(String username) {
-        boolean available;
+        boolean available = false;
         try {
             web.execute("available", username);
             available = (Boolean) web.get();
+            web = new WebStuff();
         } catch (Exception e) {
-            throw new RuntimeException();
+            e.printStackTrace();
         }
         return available;
     }

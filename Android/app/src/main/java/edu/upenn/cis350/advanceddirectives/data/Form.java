@@ -44,9 +44,8 @@ public class Form {
         this.fillFormWithQuestions();
     }
 
-    public String[] getAnswers() {
-        LinkedList<String> l = new LinkedList<String>();
-        return (String[]) l.toArray();
+    public String getAnswers() {
+        return "";
     }
 
     private void fillFormWithQuestions() {
