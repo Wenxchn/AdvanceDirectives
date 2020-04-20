@@ -86,6 +86,7 @@ app.use('/get', (req, res) => {
         if (err) {
             console.log(err);
         } else {
+            console.log("Getting stuff...")
             if (persons.length != 1) {
                 res.json({});
             } else {
@@ -105,6 +106,7 @@ app.use('/set', (req, res) => {
         if (err) {
             console.log(err);
         } else {
+            console.log("Setting stuff...")
             if (persons.length != 1) {
                 res.json({});
             } else {
@@ -124,6 +126,7 @@ app.use('/remove', (req, res) => {
         if (err) {
             console.log(err);
         } else {
+            console.log("Removing stuff...")
             if (persons.length != 1) {
                 res.json({});
             } else {
@@ -137,6 +140,7 @@ app.use('/remove', (req, res) => {
 app.use('/all', (req, res) => {
     var query = {};
     Person.find(query, (err, persons) => {
+        console.log("Getting all stuffs...")
         if (err) {
             console.log(err);
         } else {
@@ -152,6 +156,7 @@ app.use('/available', (req, res) => {
         if (err) {
             console.log(err);
         } else {
+            console.log("Checking if stuff is available...")
             var avail = true;
             persons.forEach((person) => {
                 if (person.username = username) {
