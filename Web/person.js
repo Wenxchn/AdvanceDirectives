@@ -5,11 +5,15 @@ var Schema = mongoose.Schema;
 var personSchema = new Schema({
     firstName: String,
     lastName: String,
-    birthdate: Date,
+    birthday: String,
     address: String,
     email: String,
     passcode: String,
-    responses: Array
+    username: String,
+    password: String,
+    phone: String,
+    moodCalendar: String,
+    form: Array
 });
 
 var mongoURI = "mongodb+srv://zqiu:12345@cluster0-bmaew.mongodb.net/test?retryWrites=true&w=majority";
