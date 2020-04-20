@@ -35,6 +35,10 @@ public class Person {
         return moodCalendar;
     }
 
+    public void setMoodCalendar(String s) {
+        moodCalendar = new MoodCalendar(s);
+    }
+
     public Form getForm() {
         return this.form;
     }

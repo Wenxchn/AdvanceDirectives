@@ -59,7 +59,12 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerDia
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = "Month/Day/Year: " + month + "/" + dayOfMonth + "/" + year;
+        String m = (month < 10) ? "0" + month : "" + month;
+        String d = (dayOfMonth < 10) ? "0" + dayOfMonth : "" + dayOfMonth;
+        String date = "Month/Day/Year: " + m + "/" + d + "/" + year;
+        if (date.length() != 26) {
+            throw new RuntimeException("WE WENT INTO THE FUTURE!");
+        }
         dateText.setText(date);
         StringBuilder actualDateBuilder = new StringBuilder();
         Boolean parsedThroughDesc = false;
