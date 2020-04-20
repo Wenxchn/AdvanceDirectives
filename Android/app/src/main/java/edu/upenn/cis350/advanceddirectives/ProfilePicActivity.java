@@ -38,9 +38,11 @@ public class ProfilePicActivity extends AppCompatActivity {
         this.currPic = findViewById(R.id.currPic);
         try {
             byte[] decodedString = Base64.decode(Home.currentUser.getImage(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(
-                    decodedString, 0, decodedString.length);
-            currPic.setImageBitmap(decodedByte);
+            if (decodedString != null) {
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(
+                        decodedString, 0, decodedString.length);
+                currPic.setImageBitmap(decodedByte);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,10 +58,16 @@ public class ProfilePicActivity extends AppCompatActivity {
     public void onUploadPicBut(View v) {
         Bitmap image = ((BitmapDrawable) currPic.getDrawable()).getBitmap();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),
-                Base64.DEFAULT);
-        Home.currentUser.setImage(encodedImage);
+        try {
+            image.compress(Bitmap.CompressFormat.JPEG, 1, byteArrayOutputStream);
+            String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),
+                    Base64.DEFAULT);
+            Home.currentUser.setImage(encodedImage);
+        } catch (Exception e) {
+
+        }
+//        System.out.println(encodedImage.length());
+        Home.updateDB();
     }
 
     @Override
@@ -70,33 +78,4 @@ public class ProfilePicActivity extends AppCompatActivity {
             currPic.setImageURI(selectedImage);
         }
     }
-
-    private class UploadImage extends AsyncTask<Void, Void, Void> {
-
-        Bitmap image;
-        String name;
-
-        UploadImage(Bitmap image, String name) {
-            this.image = image;
-            this.name = name;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),
-                    Base64.DEFAULT);
-
-//            List<NameValuePair> dataToSend = new ArrayList<>();
-//            dataToSend.add(new BasicNameValuePair)
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-        }
-    }
-
 }

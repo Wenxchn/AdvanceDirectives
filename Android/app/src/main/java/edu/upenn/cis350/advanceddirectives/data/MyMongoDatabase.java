@@ -30,7 +30,12 @@ public class MyMongoDatabase extends Database {
                 String phone = (String) dbPerson.get("phone");
                 String address = (String) dbPerson.get("address");
                 String birthday = (String) dbPerson.get("birthday");
-                String image = (String) dbPerson.get("image");
+                String image = "";
+                try {
+                    image = (String) dbPerson.get("image");
+                } catch (Exception e) {
+//                    e.printStackTrace();
+                }
                 Person person = new Person(username, password,
                         firstName, lastName, email, phone, address, birthday, image);
                 person.setForm((String) dbPerson.get("form"));
@@ -101,9 +106,10 @@ public class MyMongoDatabase extends Database {
                         Person person = (Person) objects[1];
                         String str = getJSONFromPerson(person).toString();
                         String encoded = URLEncoder.encode(str, StandardCharsets.UTF_8.toString());
-//                        if (true) {
+                        if (true) {
 //                            throw new RuntimeException(encoded);
-//                        }
+//                            throw new RuntimeException("" + encoded.length());
+                        }
                         System.out.println(encoded);
                         String url = urlStart + "set" + "?person=" + encoded;
                         return getPersonFromJSON((JSONObject) getWebStuffs(url));
