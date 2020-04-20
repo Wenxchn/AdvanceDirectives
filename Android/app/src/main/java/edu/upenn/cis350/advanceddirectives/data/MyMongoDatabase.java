@@ -32,7 +32,7 @@ public class MyMongoDatabase extends Database {
                 String birthday = (String) dbPerson.get("birthday");
                 String image = (String) dbPerson.get("image");
                 Person person = new Person(username, password,
-                        firstName, lastName, email, phone, address, birthday);
+                        firstName, lastName, email, phone, address, birthday, image);
                 person.setForm((String) dbPerson.get("form"));
                 person.setMoodCalendar((String) dbPerson.get("moodCalendar"));
                 if (dbPerson.has("passcode")) {
@@ -59,6 +59,7 @@ public class MyMongoDatabase extends Database {
                 dbPerson.put("moodCalendar", person.getMoodCalendar().toString());
                 dbPerson.put("form", person.getForm().getAnswers());
                 dbPerson.put("passcode", person.getPasscode());
+                dbPerson.put("image", person.getImage());
                 return dbPerson;
             } catch (Exception e) {
                 e.printStackTrace();

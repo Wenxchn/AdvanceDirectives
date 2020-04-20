@@ -2,6 +2,7 @@ package edu.upenn.cis350.advanceddirectives;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -35,7 +36,14 @@ public class ProfilePicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_pic);
         this.currPic = findViewById(R.id.currPic);
-//        currPic;
+        try {
+            byte[] decodedString = Base64.decode(Home.currentUser.getImage(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(
+                    decodedString, 0, decodedString.length);
+            currPic.setImageBitmap(decodedByte);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void onPreviewPicClick(View v) {
@@ -46,7 +54,12 @@ public class ProfilePicActivity extends AppCompatActivity {
     }
 
     public void onUploadPicBut(View v) {
-
+        Bitmap image = ((BitmapDrawable) currPic.getDrawable()).getBitmap();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),
+                Base64.DEFAULT);
+        Home.currentUser.setImage(encodedImage);
     }
 
     @Override
@@ -55,13 +68,6 @@ public class ProfilePicActivity extends AppCompatActivity {
         if (requestCode == RESULT_LOAD_IMAGE_CODE && resultCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
             currPic.setImageURI(selectedImage);
-
-            Bitmap image = ((BitmapDrawable) currPic.getDrawable()).getBitmap();
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),
-                    Base64.DEFAULT);
-            throw new RuntimeException("IMAGE STRING: " + encodedImage);
         }
     }
 
