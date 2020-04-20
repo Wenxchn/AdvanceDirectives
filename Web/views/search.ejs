@@ -8,9 +8,9 @@ Your search produced the following results.
     <p> No match found from search inputs. </p>
 <% } else { %>
 <ul>
-    <% persons.forEach( (person) => { %>
+    <% persons.forEach( (person, i) => { %>
 
-        <%= person.firstName %> <%= person.lastName %>
+        <a id=i href="/verify?index=<%= i %>"><%= person.firstName %> <%= person.lastName %></a>
         <ul>
             <li>birthdate: <%= person.birthdate %></li>
             <li>address: <%= person.address %></li>
