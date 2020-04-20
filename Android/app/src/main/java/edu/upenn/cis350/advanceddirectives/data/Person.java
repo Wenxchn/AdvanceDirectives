@@ -15,6 +15,7 @@ public class Person {
     private String address;
     private String birthday;
     private MoodCalendar moodCalendar;
+    private String image;
 
     public Person(String username, String password, String firstName, String lastName,
                   String email, String phone, String address, String birthday) {
@@ -27,6 +28,23 @@ public class Person {
         this.phone = phone;
         this.address = address;
         this.birthday = birthday;
+        this.image = "";
+        this.form = new Form();
+        this.moodCalendar = new MoodCalendar();
+    }
+
+    public Person(String username, String password, String firstName, String lastName,
+                  String email, String phone, String address, String birthday, String image) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.birthday = birthday;
+        this.image = image;
         this.form = new Form();
         this.moodCalendar = new MoodCalendar();
     }
@@ -41,6 +59,14 @@ public class Person {
 
     public void setMoodCalendar(String s) {
         moodCalendar = new MoodCalendar(s);
+    }
+
+    public String getImage() {
+        return this.image;
+    }
+
+    public void setImage(String encoding) {
+        this.image = encoding;
     }
 
     public Form getForm() {

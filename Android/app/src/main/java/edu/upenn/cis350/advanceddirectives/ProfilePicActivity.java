@@ -2,6 +2,7 @@ package edu.upenn.cis350.advanceddirectives;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ public class ProfilePicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_pic);
         this.currPic = findViewById(R.id.currPic);
-        currPic.s;
+//        currPic;
     }
 
     public void onPreviewPicClick(View v) {
@@ -54,6 +55,13 @@ public class ProfilePicActivity extends AppCompatActivity {
         if (requestCode == RESULT_LOAD_IMAGE_CODE && resultCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
             currPic.setImageURI(selectedImage);
+
+            Bitmap image = ((BitmapDrawable) currPic.getDrawable()).getBitmap();
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),
+                    Base64.DEFAULT);
+            throw new RuntimeException("IMAGE STRING: " + encodedImage);
         }
     }
 

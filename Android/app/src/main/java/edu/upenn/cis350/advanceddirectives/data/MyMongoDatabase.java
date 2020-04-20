@@ -30,6 +30,7 @@ public class MyMongoDatabase extends Database {
                 String phone = (String) dbPerson.get("phone");
                 String address = (String) dbPerson.get("address");
                 String birthday = (String) dbPerson.get("birthday");
+                String image = (String) dbPerson.get("image");
                 Person person = new Person(username, password,
                         firstName, lastName, email, phone, address, birthday);
                 person.setForm((String) dbPerson.get("form"));
