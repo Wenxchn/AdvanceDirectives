@@ -1,6 +1,7 @@
 package edu.upenn.cis350.advanceddirectives.data;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
@@ -41,6 +42,11 @@ public class Form {
     public Form() {
         this.questionList = new ArrayList<>();
         this.fillFormWithQuestions();
+    }
+
+    public String[] getAnswers() {
+        LinkedList<String> l = new LinkedList<String>();
+        return (String[]) l.toArray();
     }
 
     private void fillFormWithQuestions() {

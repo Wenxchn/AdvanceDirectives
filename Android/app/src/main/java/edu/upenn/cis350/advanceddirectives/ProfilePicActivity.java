@@ -69,8 +69,8 @@ public class ProfilePicActivity extends AppCompatActivity {
             String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),
                     Base64.DEFAULT);
 
-            List<NameValuePair> dataToSend = new ArrayList<>();
-            dataToSend.add(new BasicNameValuePair)
+//            List<NameValuePair> dataToSend = new ArrayList<>();
+//            dataToSend.add(new BasicNameValuePair)
             return null;
         }
 
