@@ -97,12 +97,7 @@ app.use('/get', (req, res) => {
 })
 
 app.use('/set', (req, res) => {
-    var personString = req.query.person
-    var decoded = decodeURI(personString)
-    console.log(personString)
-    console.log("here is the decoded:")
-    console.log(decoded)
-    var person = JSON.parse(decoded);
+    var person = JSON.parse(req.query.person);
     var dbPerson = new Person(person);
     var username = person.username;
     var query = {};
@@ -111,25 +106,21 @@ app.use('/set', (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            console.log("Setting stuff...")
-            if (persons.length != 1) {
+            console.log("Finding old stuff for res...")
+            if (persons.length == 0) {
                 res.json({});
+                dbPerson.save((err) => {});
             } else {
                 res.json(persons[0]);
             }
         }
     })
-    Person.remove(query);
+    Person.deleteOne({"username": username}, (err, results) => {});
     dbPerson.save((err) => {});
 })
 
 app.use('/remove', (req, res) => {
-    var personString = req.query.person
-    var decoded = decodeURI(personString)
-    console.log(personString)
-    console.log("here is the decoded:")
-    console.log(decoded)
-    var person = JSON.parse(decoded);
+    var person = JSON.parse(req.query.person);
     var username = person.username;
     var query = {};
     query.username = username;
@@ -145,7 +136,7 @@ app.use('/remove', (req, res) => {
             }
         }
     })
-    Person.remove(query);
+    Person.deleteOne({"username": username}, (err, results) => {});
 })
 
 app.use('/all', (req, res) => {
@@ -161,19 +152,19 @@ app.use('/all', (req, res) => {
 
 app.use('/available', (req, res) => {
     var username = req.query.username;
-    var query = {};
-    Person.find(query, (err, persons) => {
+    Person.find({}, (err, persons) => {
         if (err) {
             console.log(err);
         } else {
             console.log("Checking if stuff is available...")
             var avail = true;
             persons.forEach((person) => {
-                if (person.username = username) {
+                if (person.username == username) {
+                    console.log(person)
                     avail = false;
                 }
             })
-            res.json(avail);
+            res.json({"available": avail});
         }
     })
 })

@@ -20,6 +20,7 @@ public class PasscodeActivity extends AppCompatActivity {
     public void onPasscodeChangeClick(View v) {
         String newPasscode = ((EditText) findViewById(R.id.newPasscode)).getText().toString();
         Home.currentUser.setPasscode(newPasscode);
+        Home.updateDB();
         updatePasscodeView();
     }
 

@@ -34,6 +34,9 @@ public class MyMongoDatabase extends Database {
                         firstName, lastName, email, phone, address, birthday);
                 person.setForm((String) dbPerson.get("form"));
                 person.setMoodCalendar((String) dbPerson.get("moodCalendar"));
+                if (dbPerson.has("passcode")) {
+                    person.setPasscode((String) dbPerson.get("passcode"));
+                }
                 return person;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -54,6 +57,7 @@ public class MyMongoDatabase extends Database {
                 dbPerson.put("birthday", person.getBirthday());
                 dbPerson.put("moodCalendar", person.getMoodCalendar().toString());
                 dbPerson.put("form", person.getForm().getAnswers());
+                dbPerson.put("passcode", person.getPasscode());
                 return dbPerson;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -94,10 +98,10 @@ public class MyMongoDatabase extends Database {
                     case "set": {
                         Person person = (Person) objects[1];
                         String str = getJSONFromPerson(person).toString();
-                        if (true) {
-                            throw new RuntimeException(str);
-                        }
                         String encoded = URLEncoder.encode(str, StandardCharsets.UTF_8.toString());
+//                        if (true) {
+//                            throw new RuntimeException(encoded);
+//                        }
                         System.out.println(encoded);
                         String url = urlStart + "set" + "?person=" + encoded;
                         return getPersonFromJSON((JSONObject) getWebStuffs(url));
@@ -117,8 +121,12 @@ public class MyMongoDatabase extends Database {
                         return people;
                     }
                     case "available": {
-                        String url = urlStart + "remove" + "?username=" + objects[1];
-                        return getWebStuffs(url);
+                        String url = urlStart + "available" + "?username=" + objects[1];
+                        JSONObject result = (JSONObject) getWebStuffs(url);
+//                        if (true) {
+//                            throw new RuntimeException(result.toString());
+//                        }
+                        return result.getBoolean("available");
                     }
                 }
             } catch (Exception e) {

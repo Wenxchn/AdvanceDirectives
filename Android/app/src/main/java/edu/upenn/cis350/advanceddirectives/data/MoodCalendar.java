@@ -12,14 +12,14 @@ public class MoodCalendar {
     }
 
     public MoodCalendar(String s) {
-        if (s.length() % 33 != 0) {
-            throw new RuntimeException();
+        if (s.length() % 17 != 0) {
+            throw new RuntimeException("" + s.length());
         }
-        int num = s.length() / 33;
+        int num = s.length() / 17;
         map = new HashMap<>();
         for (int i = 0; i < num; i++) {
-            String date = s.substring(i * 33, i * 33 + 26);
-            String mood = s.substring(i * 33 + 26, i * 33 + 26 + 7);
+            String date = s.substring(i * 17, i * 17 + 10);
+            String mood = s.substring(i * 17 + 10, i * 17 + 10 + 7);
             map.put(date, mood);
         }
     }

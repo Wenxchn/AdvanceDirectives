@@ -99,6 +99,7 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerDia
         }
         Toast.makeText(this, "Updated Mood for " + currentDate + " to " + moodBuilder.toString(), Toast.LENGTH_LONG).show();
         currentUser.getMoodCalendar().setMood(currentDate, currentMood);
+        Home.updateDB();
     }
 
     public void onShowMoodClick(View v) {

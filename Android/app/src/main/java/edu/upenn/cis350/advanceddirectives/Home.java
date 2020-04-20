@@ -29,6 +29,10 @@ public class Home extends AppCompatActivity {
         ((TextView) findViewById(R.id.birthday)).setText(currentUser.getBirthday());
     }
 
+    public static void updateDB() {
+        MainActivity.database.addPerson(Home.currentUser);
+    }
+
     public void onPasscodeSettingsClick(View v) {
         Intent i = new Intent(this, PasscodeActivity.class);
         startActivity(i);
