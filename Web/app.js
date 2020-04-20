@@ -50,8 +50,8 @@ app.post('/search', (req, res) => {
             if (persons.length == 0) {
                 console.log("no match");
                 res.type('html').status(200);
-			    res.write('No match found from search inputs.');
-			    res.end();
+                res.write('No match found from search inputs.');
+                res.end();
                 return;
             }
             console.log("find" + persons);
@@ -78,6 +78,91 @@ app.use('/verify', (req, res) => {
     //res.json(result[index]);
 });
 
+app.use('/get', (req, res) => {
+    var username = req.query.username;
+    var query = {};
+    query.username = username
+    Person.find(query, (err, persons) => {
+        if (err) {
+            console.log(err);
+        } else {
+            if (persons.length != 1) {
+                res.json({});
+            } else {
+                res.json(persons[0]);
+            }
+        }
+    })
+})
+
+app.use('/set', (req, res) => {
+    var person = req.query.person;
+    var dbPerson = new Person(person);
+    var username = person.username;
+    var query = {};
+    query.username = username;
+    Person.find(query, (err, persons) => {
+        if (err) {
+            console.log(err);
+        } else {
+            if (persons.length != 1) {
+                res.json({});
+            } else {
+                res.json(persons[0]);
+            }
+        }
+    })
+    Person.remove(query);
+    dbPerson.save((err) => {});
+})
+
+app.use('/remove', (req, res) => {
+    var username = person.username;
+    var query = {};
+    query.username = username;
+    Person.find(query, (err, persons) => {
+        if (err) {
+            console.log(err);
+        } else {
+            if (persons.length != 1) {
+                res.json({});
+            } else {
+                res.json(persons[0]);
+            }
+        }
+    })
+    Person.remove(query);
+})
+
+app.use('/all', (req, res) => {
+    var query = {};
+    Person.find(query, (err, persons) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(persons);
+        }
+    })
+})
+
+app.use('/available', (req, res) => {
+    var username = req.query.username;
+    var query = {};
+    Person.find(query, (err, persons) => {
+        if (err) {
+            console.log(err);
+        } else {
+            var avail = true;
+            persons.forEach((person) => {
+                if (person.username = username) {
+                    avail = false;
+                }
+            })
+            res.json(avail);
+        }
+    })
+})
+
 app.listen(5500, () => {
     console.log('Listening on port');
 });
@@ -85,24 +170,24 @@ app.listen(5500, () => {
 
 
     // var newPerson = new Person ({
-	// 	firstName: req.body.fname,
-	// 	lastName: req.body.lname,
-	//     });
+    // 	firstName: req.body.fname,
+    // 	lastName: req.body.lname,
+    //     });
 
-	// //save the person to the database
-	// newPerson.save( (err) => { 
-	// 	if (err) {
-	// 	    res.type('html').status(200);
-	// 	    res.write('uh oh: ' + err);
-	// 	    console.log(err);
-	// 	    res.end();
-	// 	}
-	// 	else {
+    // //save the person to the database
+    // newPerson.save( (err) => { 
+    // 	if (err) {
+    // 	    res.type('html').status(200);
+    // 	    res.write('uh oh: ' + err);
+    // 	    console.log(err);
+    // 	    res.end();
+    // 	}
+    // 	else {
     //         // display the "successfull created" page using EJS
     //         console.log("saved");
     //         console.log(newPerson);
-	// 	    res.json({person : newPerson});
+    // 	    res.json({person : newPerson});
     //     }
-	//     } ); 
+    //     } ); 
 
     //res.redirect('/search');
