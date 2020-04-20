@@ -7,7 +7,9 @@ var personSchema = new Schema({
     lastName: String,
     birthdate: Date,
     address: String,
-    email: String
+    email: String,
+    passcode: String,
+    responses: Array
 });
 
 var mongoURI = "mongodb+srv://zqiu:12345@cluster0-bmaew.mongodb.net/test?retryWrites=true&w=majority";

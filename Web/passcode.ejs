@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <title>Advanced Directives for Mental Health - Passcode Verification </title>
+    <head>
+        <style>
+            .searchHead {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+	        font-size: 14px;
+	        font-weight: bold;
+	        color: rgb(141, 50, 50);
+            background-color: rgb(223, 251, 252);
+            padding: 2px;
+        }
+            td, span {
+                color: #011f5b;
+                font-family: Verdana, Arial, Helvetica, sans-serif;
+                font-size: 12px;
+            }
+
+            button {
+                background-color: rgb(58, 105, 177);
+	            color: #ffffff;
+                text-decoration: none;
+                font-size: 14px;
+                border-style: solid;
+            }
+        </style>
+
+        <script src="app.js"></script>
+    </head>
+
+    <table class="searchBody" border="0" height="10">
+        <tr>
+            <td width="350" height="10" colspan="1" valign="middle" class="searchHead" style="text-align: center">
+                Enter passcode to view full profile
+            </td>
+        </tr>
+    </table>
+    <br>
+    <form action="/verify" name="passForm" id='passForm' method="POST">
+        <label for="passcode"> <span class="field"> <b>Please enter passcode:</b></span></label>
+        <input type="password" name="passcode" id="passcode" required><br><br>
+        <input type="checkbox" onclick="show()"><span class="field"> <b>Show passcode</b></span>
+        <button type="submit">Submit</button>
+        <button type="reset">Clear</button>
+        <script>
+            function show() {
+              var x = document.getElementById("passcode");
+              if (x.type === "password") {
+                x.type = "text";
+              } else {
+                x.type = "password";
+              }
+            }
+            </script>
+    </form>
+    <span class="field" style="color:brown"> <b><%= message %></b></span>
+
+</html>
