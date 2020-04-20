@@ -34,12 +34,17 @@ public class ProfilePicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_pic);
         this.currPic = findViewById(R.id.currPic);
+        currPic.s;
     }
 
     public void onPreviewPicClick(View v) {
         Intent galleryIntent =
         new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE_CODE);
+
+    }
+
+    public void onUploadPicBut(View v) {
 
     }
 

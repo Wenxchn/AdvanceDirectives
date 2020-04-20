@@ -30,6 +30,7 @@
             android:id="@+id/uploadPicBut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onUploadPicBut"
             android:text="Upload Currently Selected Photo" />
     </LinearLayout>
 
