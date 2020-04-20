@@ -19,6 +19,7 @@
             android:name=".ProfilePicActivity"
             android:label="@string/title_activity_profile_pic"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".CalendarActivity"></activity>
         <activity android:name=".FormSettingsActivity" />
         <activity android:name=".PasscodeActivity" />
 

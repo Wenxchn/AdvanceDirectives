@@ -14,6 +14,7 @@ public class Person {
     private String phone;
     private String address;
     private String birthday;
+    private MoodCalendar moodCalendar;
 
     public Person(String username, String password, String firstName, String lastName,
                   String email, String phone, String address, String birthday) {
@@ -27,6 +28,11 @@ public class Person {
         this.address = address;
         this.birthday = birthday;
         this.form = new Form();
+        this.moodCalendar = new MoodCalendar();
+    }
+
+    public MoodCalendar getMoodCalendar() {
+        return moodCalendar;
     }
 
     public Form getForm() {

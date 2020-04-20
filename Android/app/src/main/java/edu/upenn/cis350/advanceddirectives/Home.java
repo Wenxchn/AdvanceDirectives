@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import edu.upenn.cis350.advanceddirectives.data.MoodCalendar;
 import edu.upenn.cis350.advanceddirectives.data.Person;
 
 
@@ -42,4 +43,10 @@ public class Home extends AppCompatActivity {
         Intent i = new Intent(this, ProfilePicActivity.class);
         startActivity(i);
     }
+
+    public void onMoodCalendarClick(View v) {
+        Intent i = new Intent(this, CalendarActivity.class);
+        startActivity(i);
+    }
+
 }

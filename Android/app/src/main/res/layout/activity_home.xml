@@ -103,6 +103,11 @@
             android:layout_height="wrap_content"
             android:onClick="onProfPicSettingsClick"
             android:text="Profile Picture Settings" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onMoodCalendarClick"
+            android:text="Mood Calendar" />
     </LinearLayout>
 
 

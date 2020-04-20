@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalendarActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Calendar"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/open_calendar"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Mood"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/save_mood"
+        android:layout_below="@+id/mood_spinner"
+        android:onClick="onSaveMoodClick"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Mood"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/show_mood"
+        android:layout_below="@+id/save_mood"
+        android:onClick="onShowMoodClick"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Month/Day/Year: Not Selected"
+        android:textColor="#000"
+        android:textSize="21sp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/date_text"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mood: N/A"
+        android:textColor="#000"
+        android:textSize="21sp"
+        android:id="@+id/mood_text"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/date_text"
+        />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/open_calendar"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/mood_spinner"
+        />
+
+</RelativeLayout>
