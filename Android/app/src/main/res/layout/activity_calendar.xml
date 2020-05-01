@@ -54,6 +54,7 @@
         android:id="@+id/mood_text"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/date_text"
+        android:gravity="center"
         />
 
     <Spinner

@@ -2,6 +2,7 @@ package edu.upenn.cis350.advanceddirectives;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -90,24 +91,32 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerDia
     }
 
     public void onSaveMoodClick(View v) {
-        StringBuilder moodBuilder = new StringBuilder();
-        for (int i = 0; i < currentMood.length(); i++) {
-            if (currentMood.charAt(i) == '1' || currentMood.charAt(i) == '2' || currentMood.charAt(i) == '3' ||
-                    currentMood.charAt(i) == '4' || currentMood.charAt(i) == '5') {
-                moodBuilder.append(currentMood.charAt(i));
-            }
-        }
-        Toast.makeText(this, "Updated Mood for " + currentDate + " to " + moodBuilder.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Updated Mood for " + currentDate + " to " + currentMood.charAt(6), Toast.LENGTH_LONG).show();
         currentUser.getMoodCalendar().setMood(currentDate, currentMood);
         Home.updateDB();
     }
 
+    @SuppressLint("SetTextI18n")
     public void onShowMoodClick(View v) {
         Toast.makeText(this, "Showing Mood for " + currentDate, Toast.LENGTH_LONG).show();
+        StringBuilder moods = new StringBuilder();
+        for (int wk = 1; wk < 6; wk++) {
+            moods.append("Week ").append(wk).append(":  ");
+            for (int d = 1; d < 8; d++) {
+                int i = (wk - 1) * 7 + d;
+                String day = (i < 10) ? "0" + i : "" + i;
+                String date = currentDate.substring(0, 3) + day + currentDate.substring(5);
+                String m = currentUser.getMoodCalendar().getMood(date);
+                moods.append(d).append(":");
+                moods.append(m == null ? "  " : m.charAt(6)).append(" ");
+            }
+            moods.append("\n");
+        }
+        String s = "\n\n" + "Moods over month (day of week : mood)\n" + moods.toString();
         if (currentUser.getMoodCalendar().getMood(currentDate) == null) {
-            moodText.setText("Mood: N/A");
+            moodText.setText("Mood: N/A" + "\n" + s);
         } else {
-            moodText.setText(currentUser.getMoodCalendar().getMood(currentDate));
+            moodText.setText(currentUser.getMoodCalendar().getMood(currentDate) + s);
         }
     }
 }
