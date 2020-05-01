@@ -53,4 +53,9 @@ public class Home extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void onDeleteAccountClick(View v) {
+        MainActivity.database.removePerson(currentUser.getUsername());
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
 }

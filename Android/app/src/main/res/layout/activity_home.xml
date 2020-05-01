@@ -108,6 +108,11 @@
             android:layout_height="wrap_content"
             android:onClick="onMoodCalendarClick"
             android:text="Mood Calendar" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onDeleteAccountClick"
+            android:text="Delete My Account"/>
     </LinearLayout>
 
 

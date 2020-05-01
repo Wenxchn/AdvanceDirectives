@@ -125,8 +125,7 @@ app.use('/set', (req, res) => {
 })
 
 app.use('/remove', (req, res) => {
-    var person = JSON.parse(req.query.person);
-    var username = person.username;
+    var username = req.query.username;
     var query = {};
     query.username = username;
     Person.find(query, (err, persons) => {
@@ -134,7 +133,7 @@ app.use('/remove', (req, res) => {
             console.log(err);
         } else {
             console.log("Removing stuff...")
-            if (persons.length != 1) {
+            if (persons.length == 0) {
                 res.json({});
             } else {
                 res.json(persons[0]);
