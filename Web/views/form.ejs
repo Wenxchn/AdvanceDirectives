@@ -94,7 +94,6 @@
             <td>Email</td>
             <td><%= currPerson.email %> </td>
           </tr>
-          
           <% questions.forEach( (question, i) => { %>
             <%var r = responses[i];
             if (r == "null") {
@@ -106,8 +105,10 @@
                 <td> <%= r %> </td>
             </tr>
           <% }); %>
-
-
+          <tr>
+            <td>Mood Data</td>
+            <td><%= currPerson.moodCalendar.replace(/(.{17})/g,"$1, ").replace(/M/g, " M") %> </td>
+          </tr>
         </table>    
     </body>
 </html>
