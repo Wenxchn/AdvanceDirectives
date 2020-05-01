@@ -5,10 +5,11 @@ import android.os.AsyncTask;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -30,12 +31,17 @@ public class MyMongoDatabase extends Database {
                 String phone = (String) dbPerson.get("phone");
                 String address = (String) dbPerson.get("address");
                 String birthday = (String) dbPerson.get("birthday");
+                // image data and birthday are stored together separated by "@"
+                // just prey they never put "@" in their birthday string lol
+                int sep = birthday.indexOf("@");
                 String image = "";
-                try {
-                    image = (String) dbPerson.get("image");
-                } catch (Exception e) {
-//                    e.printStackTrace();
+                if (sep != -1) {
+                    if (sep != birthday.length() - 1) {
+                        image = birthday.substring(sep + 1);
+                    }
+                    birthday = birthday.substring(0, sep);
                 }
+                image = image.replace(" ", "+");
                 Person person = new Person(username, password,
                         firstName, lastName, email, phone, address, birthday, image);
                 person.setForm((String) dbPerson.get("form"));
@@ -60,7 +66,7 @@ public class MyMongoDatabase extends Database {
                 dbPerson.put("email", person.getEmail());
                 dbPerson.put("phone", person.getPhone());
                 dbPerson.put("address", person.getAddress());
-                dbPerson.put("birthday", person.getBirthday());
+                dbPerson.put("birthday", person.getBirthday() + "@" + person.getImage());
                 dbPerson.put("moodCalendar", person.getMoodCalendar().toString());
                 dbPerson.put("form", person.getForm().getAnswers());
                 dbPerson.put("passcode", person.getPasscode());
@@ -71,6 +77,33 @@ public class MyMongoDatabase extends Database {
             }
             return null;
         }
+
+        private Object getWebStuffs(String url, String data) {
+            try {
+                URL u = new URL(url);
+                HttpURLConnection c = (HttpURLConnection) u.openConnection();
+                c.setRequestMethod("POST");
+                c.setDoOutput(true);
+                try (DataOutputStream wr = new DataOutputStream(c.getOutputStream())) {
+                    wr.writeBytes("person=" + data);
+                    wr.flush();
+                }
+                StringBuilder response = new StringBuilder();
+                try (BufferedReader in = new BufferedReader(
+                        new InputStreamReader(c.getInputStream()))) {
+                    String line;
+                    while ((line = in.readLine()) != null) {
+                        response.append(line);
+                    }
+                }
+                c.disconnect();
+                return new JSONObject(response.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
 
         private Object getWebStuffs(String url) {
             try {
@@ -105,14 +138,10 @@ public class MyMongoDatabase extends Database {
                     case "set": {
                         Person person = (Person) objects[1];
                         String str = getJSONFromPerson(person).toString();
-                        String encoded = URLEncoder.encode(str, StandardCharsets.UTF_8.toString());
-                        if (true) {
-//                            throw new RuntimeException(encoded);
-//                            throw new RuntimeException("" + encoded.length());
-                        }
-                        System.out.println(encoded);
-                        String url = urlStart + "set" + "?person=" + encoded;
-                        return getPersonFromJSON((JSONObject) getWebStuffs(url));
+//                        String encoded = URLEncoder.encode(str, StandardCharsets.UTF_8.toString());
+//                        System.out.println(encoded);
+                        String url = urlStart + "setpost";
+                        return getPersonFromJSON((JSONObject) getWebStuffs(url, str));
                     }
                     case "remove": {
                         String url = urlStart + "remove" + "?username=" + objects[1];

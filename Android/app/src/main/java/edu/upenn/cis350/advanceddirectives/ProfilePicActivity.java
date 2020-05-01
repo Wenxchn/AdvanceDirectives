@@ -37,6 +37,7 @@ public class ProfilePicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_pic);
         this.currPic = findViewById(R.id.currPic);
         try {
+//            System.out.println(Home.currentUser.getImage());
             byte[] decodedString = Base64.decode(Home.currentUser.getImage(), Base64.DEFAULT);
             if (decodedString != null) {
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(
@@ -56,17 +57,24 @@ public class ProfilePicActivity extends AppCompatActivity {
     }
 
     public void onUploadPicBut(View v) {
-        Bitmap image = ((BitmapDrawable) currPic.getDrawable()).getBitmap();
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try {
-            image.compress(Bitmap.CompressFormat.JPEG, 1, byteArrayOutputStream);
-            String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),
+        Bitmap image;
+        ByteArrayOutputStream byteArrayOutputStream;
+        String encodedImage = "";
+        int qual = 30;
+        int len = 49001;
+        while (len > 39000 && qual > 0) {
+            image = ((BitmapDrawable) currPic.getDrawable()).getBitmap();
+            byteArrayOutputStream = new ByteArrayOutputStream();
+            image.compress(Bitmap.CompressFormat.JPEG, qual, byteArrayOutputStream);
+            encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),
                     Base64.DEFAULT);
-            Home.currentUser.setImage(encodedImage);
-        } catch (Exception e) {
-
+            qual -= 1;
+            len = encodedImage.length();
         }
-//        System.out.println(encodedImage.length());
+        System.out.println("Image Quality Is: " + (qual + 1));
+        Home.currentUser.setImage(encodedImage);
+        System.out.println("this is the encoded image:");
+        System.out.println(encodedImage.length());
         Home.updateDB();
     }
 

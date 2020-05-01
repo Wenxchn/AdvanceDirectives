@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class MoodCalendar {
 
-    private HashMap<String, String> map; //Date-Mood eg. "4/1/2020" maps to "Mood: 4"
+    private HashMap<String, String> map; //Date-Mood eg. "04/01/2020" maps to "Mood: 4"
 
     public MoodCalendar() {
         map = new HashMap<>();

@@ -18,6 +18,7 @@ public class Form {
 
         public Question(String question) {
             this.question = question;
+//            this.response = "";
         }
 
         public String getQuestion() {
@@ -44,8 +45,30 @@ public class Form {
         this.fillFormWithQuestions();
     }
 
+    private String delimeter = "`~!@#Next_Answer#@!~`";
+
     public String getAnswers() {
-        return "";
+        StringBuilder ans = new StringBuilder();
+        for (int i = 0; i < numQuestions(); i++) {
+            ans.append(getQuestion(i).getResponse());
+            if (i != numQuestions() - 1) {
+                ans.append(delimeter);
+            }
+        }
+        return ans.toString();
+    }
+
+    public void setFormFromAnswers(String answers) {
+        String[] ans = answers.split(delimeter, numQuestions());
+        if (ans.length != numQuestions()) {
+            System.out.println("questions don't line up");
+            return;
+        }
+        for (int i = 0; i < ans.length; i++) {
+            if (!ans[i].equals("null")) {
+                getQuestion(i).setResponse(ans[i]);
+            }
+        }
     }
 
     private void fillFormWithQuestions() {

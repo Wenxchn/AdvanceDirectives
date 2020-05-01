@@ -54,7 +54,7 @@ public class Person {
     }
 
     public void setForm(String answers) {
-        return;
+        this.form.setFormFromAnswers(answers);
     }
 
     public void setMoodCalendar(String s) {

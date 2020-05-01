@@ -12,7 +12,7 @@ Your search produced the following results.
 
         <a id=i href="/verify?index=<%= i %>"><%= person.firstName %> <%= person.lastName %></a>
         <ul>
-            <li>Birthdate: <%= person.birthdate %></li>
+            <li>Birthday: <%= person.birthday.substring(0, person.birthday.indexOf("@")) %></li>
             <li>Address: <%= person.address %></li>
             <li>Email: <%= person.email %></li>
         </ul>

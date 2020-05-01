@@ -1,52 +1,57 @@
 <% var questions = [];
 
-   questions.push("1. What symptoms/problems do you experience " +
-   "during a period of mental health crisis?");
-   questions.push("2. What medications are helpful/not helpful for you? " +
-   "Try to give detail to assist medical professionals who " +
-   "may be helping you in crisis.");
-   questions.push("A. I agree to administration of " +
-   "the following medication(s):");
-   questions.push("B. I do not agree to administration of the " +
-   "following medication(s):");
-   questions.push("C. Other information about medications " +
-   "(allergies, side effects)");
-   questions.push("3. What are your preferences regarding treatment " +
-   "facilities?");
-   questions.push("A. I agree to admission to the following " +
-   "hospital(s):\n" + "Note: Admission to a specific facility may be" +
-   "limited because of lack of an available bed. ");
-   questions.push("B. I do not agree to admission to the" +
-   "following hospital(s):");
-   questions.push("C. Other information about" +
-   "hospitalization:");
-   questions.push("5. Crisis Precipitants. The following may" +
-   "cause me to experience a mental health crisis:");
-   questions.push("6. Protective Factors. The following" +
-   "may help me avoid a mental health crisis:");
-   questions.push("7. Response to Hospital. I usually respond" +
-   "to the hospital as follows:");
-   questions.push("8. Preferences for Staff Interactions.\n" +
-   "Staff of the hospital or crisis unit can help me by doing the following:");
-   questions.push("9. I give permission for the following" +
-   " people to visit me in the hospital: ");
-   questions.push("10. The following are my" +
-   "preferences about ECT and other treatments");
-   questions.push("A. Do I consent to ECT?");
-   questions.push("B. My preferences about other treatments:");
-   questions.push("11. Other Instructions");
-   questions.push("A. If I am hospitalized," +
-   "I want the following to be taken care of at my home: ");
-   questions.push("B. I understand that the information " +
-   "in this document may be shared by my mental health treatment " +
-   "provider with any other mental health treatment " +
-   "provider who may serve me when necessary to " +
-   "30\n" +
-   "provide treatment in accordance with this advance instruction. " +
-   "Other instructions about sharing of " +
-   "information are as follows:");
+    questions.push("1. What symptoms/problems do you experience " +
+    "during a period of mental health crisis?");
+    questions.push("2. What medications are helpful/not helpful for you? " +
+    "Try to give detail to assist medical professionals who " +
+    "may be helping you in crisis.");
+    questions.push("A. I agree to administration of " +
+    "the following medication(s):");
+    questions.push("B. I do not agree to administration of the " +
+    "following medication(s):");
+    questions.push("C. Other information about medications " +
+    "(allergies, side effects)");
+    questions.push("3. What are your preferences regarding treatment " +
+    "facilities?");
+    questions.push("A. I agree to admission to the following " +
+    "hospital(s):\n" + "Note: Admission to a specific facility may be" +
+    "limited because of lack of an available bed. ");
+    questions.push("B. I do not agree to admission to the" +
+    "following hospital(s):");
+    questions.push("C. Other information about" +
+    "hospitalization:");
+    questions.push("5. Crisis Precipitants. The following may" +
+    "cause me to experience a mental health crisis:");
+    questions.push("6. Protective Factors. The following" +
+    "may help me avoid a mental health crisis:");
+    questions.push("7. Response to Hospital. I usually respond" +
+    "to the hospital as follows:");
+    questions.push("8. Preferences for Staff Interactions.\n" +
+    "Staff of the hospital or crisis unit can help me by doing the following:");
+    questions.push("9. I give permission for the following" +
+    " people to visit me in the hospital: ");
+    questions.push("10. The following are my" +
+    "preferences about ECT and other treatments");
+    questions.push("A. Do I consent to ECT?");
+    questions.push("B. My preferences about other treatments:");
+    questions.push("11. Other Instructions");
+    questions.push("A. If I am hospitalized," +
+    "I want the following to be taken care of at my home: ");
+    questions.push("B. I understand that the information " +
+    "in this document may be shared by my mental health treatment " +
+    "provider with any other mental health treatment " +
+    "provider who may serve me when necessary to " +
+    "30\n" +
+    "provide treatment in accordance with this advance instruction. " +
+    "Other instructions about sharing of " +
+    "information are as follows:");
 
-   var responses = currPerson.responses;
+    var responses = currPerson.form.split("`~!@#Next_Answer#@!~`")
+    var bday = currPerson.birthday;
+    var img = "data:image/png;base64, ";
+    var more = bday.substring(bday.indexOf("@") + 1);
+    more = more.replace(/ /g, "+");
+    img += more;
 %>
 
 <html>
@@ -64,7 +69,10 @@
         </style>
     </head>
 
-    <body>     
+    <body>
+        <div style="max-width: 200px" >
+          <img src= "<%=img%>" style="max-width:100%;" />
+        </div>
         <table style="width:75%">
           <tr>
             <td>First Name</td>
@@ -75,8 +83,8 @@
             <td><%= currPerson.lastName %></td>
           </tr>
           <tr>
-            <td>Birthdate</td>
-            <td><%= currPerson.birthdate %></td>
+            <td>Birthday</td>
+            <td><%= currPerson.birthday.substring(0, currPerson.birthday.indexOf("@"))%></td>
           </tr>
           <tr>
             <td>Address</td>
@@ -86,10 +94,16 @@
             <td>Email</td>
             <td><%= currPerson.email %> </td>
           </tr>
+          
           <% questions.forEach( (question, i) => { %>
+            <%var r = responses[i];
+            if (r == "null") {
+              r = "";
+            }
+            %>
             <tr>
                 <td><%= question %></td>
-                <td> <%= currPerson.responses[i] %> </td>
+                <td> <%= r %> </td>
             </tr>
           <% }); %>
 

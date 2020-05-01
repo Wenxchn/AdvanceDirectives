@@ -74,9 +74,15 @@ public class FormSettingsActivity extends AppCompatActivity {
             String response = currResponse.getText().toString();
             Form.Question currQuestion = Home.currentUser.getForm().getQuestion(currQuestIdx);
             if (currQuestion.getResponse() != null) {
-                currQuestion.setResponse(response);
-                Toast.makeText(this, "Response Saved!",
-                        Toast.LENGTH_LONG).show();
+                if (!response.equals("null")) {
+                    currQuestion.setResponse(response);
+                    Home.updateDB();
+                    Toast.makeText(this, "Response Saved!",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "Cannot set answer to 'null'!",
+                            Toast.LENGTH_LONG).show();
+                }
             } else {
                 Toast.makeText(this, "Question continues next!",
                         Toast.LENGTH_LONG).show();

@@ -4,6 +4,7 @@ var app = express();
 var Person = require('./person.js')
 var result = [];
 var index = null;
+var port = 5500;
 
 app.use(bodyParser.urlencoded({extended: true})); 
 
@@ -24,7 +25,7 @@ app.get('/verify', function(req, res) {
 
 app.post('/search', (req, res) => {
     console.log('here');
-    console.log(req.body);
+    // console.log(req.body);
     var query = {};
 
     if (req.body.fname) {
@@ -37,7 +38,7 @@ app.post('/search', (req, res) => {
     }
 
     if (req.body.address) {
-        query.address = new RegExp(`^${req.body.address}$`, 'i');
+        query.address = new RegExp(`${req.body.address}`, 'i');
     }
 
     //console.log(query);
@@ -59,7 +60,7 @@ app.post('/search', (req, res) => {
                 res.end();
                 return;
             }
-            console.log("find" + persons);
+            // console.log("find" + persons);
             result = persons;
             // res.json(persons);
             res.render('search.ejs', {persons: persons});
@@ -74,11 +75,10 @@ app.use('/verify', (req, res) => {
     if (passcode == currPerson.passcode) {
         res.render('form.ejs', {currPerson: currPerson});
     } else {
-        res.render(`${__dirname}/passcode.ejs`, {message: "The passcode you entered is incorrect, " +
-                                                "please try again"});
+        res.render(`${__dirname}/passcode.ejs`, {message: "The passcode you entered is incorrect, " + "please try again"});
     }
     console.log("pass" + passcode);
-    console.log(result[index]);
+    // console.log(result[index]);
     //res.json(passcode);
     //res.json(result[index]);
 });
@@ -96,9 +96,38 @@ app.use('/get', (req, res) => {
                 res.json({});
             } else {
                 res.json(persons[0]);
+                console.log("got this person:" + persons[0].username);
+                console.log("here is their form: " + persons[0].form);
             }
         }
     })
+})
+
+app.post('/setpost', (req, res) => {
+    if (!req.body.person) {
+        console.log("person not there")
+    }
+    var person = JSON.parse(req.body.person);
+    console.log("setting person: " + person.username);
+    var dbPerson = new Person(person);
+    var username = person.username;
+    var query = {};
+    query.username = username;
+    Person.find(query, (err, persons) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Finding old stuff for res...")
+            if (persons.length == 0) {
+                res.json({});
+                dbPerson.save((err) => {});
+            } else {
+                res.json(persons[0]);
+            }
+        }
+    })
+    Person.deleteOne({"username": username}, (err, results) => {});
+    dbPerson.save((err) => {});
 })
 
 app.use('/set', (req, res) => {
@@ -164,7 +193,6 @@ app.use('/available', (req, res) => {
             var avail = true;
             persons.forEach((person) => {
                 if (person.username == username) {
-                    console.log(person)
                     avail = false;
                 }
             })
@@ -173,8 +201,8 @@ app.use('/available', (req, res) => {
     })
 })
 
-app.listen(5500, () => {
-    console.log('Listening on port');
+app.listen(port, () => {
+    console.log('Listening on port ' + port);
 });
 
 
