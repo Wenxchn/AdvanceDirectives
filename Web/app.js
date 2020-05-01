@@ -35,6 +35,11 @@ app.post('/search', (req, res) => {
     if (req.body.lname) {
         query.lastName = new RegExp(`^${req.body.lname}$`, 'i');
     }
+
+    if (req.body.address) {
+        query.address = new RegExp(`^${req.body.address}$`, 'i');
+    }
+
     //console.log(query);
     if (Object.keys(query).length == 0) {
         //console.log("empty");
